@@ -1,16 +1,16 @@
-var mongoose = require('mongoose');
+var mongoose = require("mongoose");
 
-var options = {
-    connectTimeoutMS: 5000,
-    useUnifiedTopology : true,
-    useNewUrlParser: true,
-}
+var user = "Capsule";
+var password = "mkQTRQcuKn2tOvay";
+var server = "cluster0.qnjdh.mongodb.net";
+var bddname = "morningnews";
 
-mongoose.connect('mongodb+srv://david:hgm4lRQq8QM1p3P8@cluster0-9xbpy.mongodb.net/morningnews?retryWrites=true&w=majority',
-    options,
-    function(err){
-        console.log(err);
-    }
-)
+var options = { connectTimeoutMS: 5000, useNewUrlParser: true, useUnifiedTopology: true };
 
-module.exports = mongoose
+mongoose.connect("mongodb+srv://" + user + ":" + password + "@" + server + "/" + bddname + "?retryWrites=true&w=majority", options, function (error) {
+  if (error == null) {
+    console.log("Connexion réussie");
+  } else {
+    console.log(error);
+  }
+});
