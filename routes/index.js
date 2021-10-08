@@ -32,6 +32,16 @@ router.post("/addToWishlist", async function (req, res, next) {
 });
 
 router.post("/deleteToWishlist", async function (req, res, next) {
+  var del = await userModel.updateOne(
+    { token: req.body.token },
+    { $pull: { wishlist: { title: req.body.title } } }
+  );
+  var result = false;
+  if (del.deletedCount == 1) {
+    result = true;
+  }
+  res.json({ result });
+
   //avec le token, on va retirer l'article dans le sous document de l'utilisateur
 });
 
