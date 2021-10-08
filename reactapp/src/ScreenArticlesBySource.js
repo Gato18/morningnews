@@ -4,7 +4,6 @@ import "./App.css";
 import { Card, Icon, Modal } from "antd";
 import Nav from "./Nav";
 import { connect } from "react-redux";
-import { log } from "debug";
 
 const { Meta } = Card;
 
@@ -27,6 +26,17 @@ function ScreenArticlesBySource(props) {
 
     findArticles();
   }, []);
+
+  async function addToWishlist(article) {
+    // var result = await fetch("/addToWishlist", {
+    //   method: "POST",
+    //   headers: { "Content-Type": "application/x-www-form-urlencoded" },
+    //   body: "token=" + props.token + "&article=" + JSON.stringify(article),
+    // });
+    // if (await result.json()) {
+    //   props.addToWishList(article);
+    // }
+  }
 
   var showModal = (title, content) => {
     setVisible(true);
@@ -68,7 +78,7 @@ function ScreenArticlesBySource(props) {
                   type="like"
                   key="ellipsis"
                   onClick={() => {
-                    props.addToWishList(article, props.token);
+                    addToWishlist(article, props.token);
                   }}
                 />,
               ]}>

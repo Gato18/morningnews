@@ -12,7 +12,6 @@ export default function (wishList = [], action) {
 
     if (!findArticle) {
       wishListCopy.push(action.articleLiked);
-      //fetch avec les données de l'article a ajouté et le token
     }
 
     return wishListCopy;
