@@ -45,6 +45,19 @@ router.post("/deleteToWishlist", async function (req, res, next) {
   //avec le token, on va retirer l'article dans le sous document de l'utilisateur
 });
 
+router.post("/loadWishlist", async function (req, res, next) {
+  var loadWish = await userModel.find({ token: req.body.token });
+  console.log("loadWish", loadWish);
+
+  //var result = false;
+  //if (del.deletedCount == 1) {
+  // result = true;
+  //}
+  res.json({ result: loadWish[0].wishlist });
+
+  //avec le token, on va retirer l'article dans le sous document de l'utilisateur
+});
+
 router.post("/sign-up", async function (req, res, next) {
   var error = [];
   var result = false;
