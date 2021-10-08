@@ -1,14 +1,13 @@
-import React from 'react';
-import {Link} from 'react-router-dom'
-import './App.css';
-import {Menu, Icon} from 'antd'
+import React from "react";
+import { Link } from "react-router-dom";
+import "./App.css";
+import { Menu, Icon, Badge } from "antd";
+import { connect } from "react-redux";
 
-function Nav() {
-
+function Nav(props) {
   return (
-    <nav >
-      <Menu style={{textAlign: 'center'}} mode="horizontal" theme="dark">
-
+    <nav>
+      <Menu style={{ textAlign: "center" }} mode="horizontal" theme="dark">
         <Menu.Item key="mail">
           <Link to="/screensource">
             <Icon type="home" />
@@ -19,7 +18,9 @@ function Nav() {
         <Menu.Item key="test">
           <Link to="/screenmyarticles">
             <Icon type="read" />
-            My Articles
+            <Badge className="badge" style={{ backgroundColor: "#108ee9" }} count={props.articleLiked.length}>
+              My Articles
+            </Badge>
           </Link>
         </Menu.Item>
 
@@ -29,10 +30,13 @@ function Nav() {
             Logout
           </Link>
         </Menu.Item>
-
       </Menu>
     </nav>
   );
 }
 
-export default Nav;
+function mapStateToProps(state) {
+  return { articleLiked: state.wishList, token: state.token };
+}
+
+export default connect(mapStateToProps, null)(Nav);
