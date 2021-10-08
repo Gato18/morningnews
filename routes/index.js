@@ -7,6 +7,26 @@ var bcrypt = require("bcrypt");
 var userModel = require("../models/users");
 
 router.post("/addToWishlist", async function (req, res, next) {
+  var article = JSON.parse(req.body.article);
+
+  var wishlist = {
+    title: article.title,
+    desc: article.description,
+    content: article.content,
+    img: article.urlToImage,
+  };
+
+  var newArticle = await userModel.findOneAndUpdate(
+    { token: req.body.token },
+    { $push: { wishlist: wishlist } }
+  );
+
+  var result = false;
+  if (newArticle != null) {
+    result = true;
+  }
+  res.json({ result });
+
   //avec le token, on va rajouter l'article dans le sous document de l'utilisateur
   //depuis le fetch on a les info dans le req.body
 });
@@ -29,7 +49,11 @@ router.post("/sign-up", async function (req, res, next) {
     error.push("utilisateur déjà présent");
   }
 
-  if (req.body.usernameFromFront == "" || req.body.emailFromFront == "" || req.body.passwordFromFront == "") {
+  if (
+    req.body.usernameFromFront == "" ||
+    req.body.emailFromFront == "" ||
+    req.body.passwordFromFront == ""
+  ) {
     error.push("champs vides");
   }
 
