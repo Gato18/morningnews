@@ -13,14 +13,14 @@ function ScreenMyArticles(props) {
   const [content, setContent] = useState("");
 
   async function removeToWishList(title) {
-    //   await fetch("/deleteToWishlist", {
-    //     method: "POST",
-    //     headers: { "Content-Type": "application/x-www-form-urlencoded" },
-    //     body: "token=" + props.token + "&title=" + title,
-    //   });
-    // if (await result.json()) {
-    //   props.deleteToWishList(title);
-    // }
+    var result = await fetch("/deleteToWishlist", {
+      method: "POST",
+      headers: { "Content-Type": "application/x-www-form-urlencoded" },
+      body: "token=" + props.token + "&title=" + title,
+    });
+    if (await result.json()) {
+      props.deleteToWishList(title);
+    }
   }
 
   var showModal = (title, content) => {

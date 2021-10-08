@@ -18,7 +18,7 @@ function ScreenArticlesBySource(props) {
 
   useEffect(() => {
     const findArticles = async () => {
-      const data = await fetch(`https://newsapi.org/v2/top-headlines?sources=${id}&apiKey=b32c8b844d1243b1a7998d8228910f50`);
+      const data = await fetch(`https://newsapi.org/v2/top-headlines?sources=${id}&apiKey=f4f41cefc0d54cb798b0ae155e691ec0`);
       const body = await data.json();
       console.log(body);
       setArticleList(body.articles);
@@ -28,14 +28,16 @@ function ScreenArticlesBySource(props) {
   }, []);
 
   async function addToWishlist(article) {
-    // var result = await fetch("/addToWishlist", {
-    //   method: "POST",
-    //   headers: { "Content-Type": "application/x-www-form-urlencoded" },
-    //   body: "token=" + props.token + "&article=" + JSON.stringify(article),
-    // });
-    // if (await result.json()) {
-    //   props.addToWishList(article);
-    // }
+    console.log(JSON.stringify(article));
+
+    var result = await fetch("/addToWishlist", {
+      method: "POST",
+      headers: { "Content-Type": "application/x-www-form-urlencoded" },
+      body: "token=" + props.token + "&article=" + JSON.stringify(article),
+    });
+    if (await result.json()) {
+      props.addToWishList(article);
+    }
   }
 
   var showModal = (title, content) => {

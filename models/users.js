@@ -8,8 +8,8 @@ const userSchema = mongoose.Schema({
   wishlist: [
     {
       title: String,
-      desc: String,
-      img: String,
+      description: String,
+      urlToImage: String,
       content: String,
     },
   ],

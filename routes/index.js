@@ -11,15 +11,12 @@ router.post("/addToWishlist", async function (req, res, next) {
 
   var wishlist = {
     title: article.title,
-    desc: article.description,
+    description: article.description,
     content: article.content,
-    img: article.urlToImage,
+    urlToImage: article.urlToImage,
   };
 
-  var newArticle = await userModel.findOneAndUpdate(
-    { token: req.body.token },
-    { $push: { wishlist: wishlist } }
-  );
+  var newArticle = await userModel.findOneAndUpdate({ token: req.body.token }, { $push: { wishlist: wishlist } });
 
   var result = false;
   if (newArticle != null) {
@@ -32,10 +29,7 @@ router.post("/addToWishlist", async function (req, res, next) {
 });
 
 router.post("/deleteToWishlist", async function (req, res, next) {
-  var del = await userModel.updateOne(
-    { token: req.body.token },
-    { $pull: { wishlist: { title: req.body.title } } }
-  );
+  var del = await userModel.updateOne({ token: req.body.token }, { $pull: { wishlist: { title: req.body.title } } });
   var result = false;
   if (del.deletedCount == 1) {
     result = true;
@@ -46,6 +40,8 @@ router.post("/deleteToWishlist", async function (req, res, next) {
 });
 
 router.post("/loadWishlist", async function (req, res, next) {
+  console.log("token", req.body.token);
+
   var loadWish = await userModel.find({ token: req.body.token });
   console.log("loadWish", loadWish);
 
@@ -72,11 +68,7 @@ router.post("/sign-up", async function (req, res, next) {
     error.push("utilisateur déjà présent");
   }
 
-  if (
-    req.body.usernameFromFront == "" ||
-    req.body.emailFromFront == "" ||
-    req.body.passwordFromFront == ""
-  ) {
+  if (req.body.usernameFromFront == "" || req.body.emailFromFront == "" || req.body.passwordFromFront == "") {
     error.push("champs vides");
   }
 
