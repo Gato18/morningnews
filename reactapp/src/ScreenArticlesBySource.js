@@ -4,6 +4,7 @@ import "./App.css";
 import { Card, Icon, Modal } from "antd";
 import Nav from "./Nav";
 import { connect } from "react-redux";
+import { log } from "debug";
 
 const { Meta } = Card;
 
@@ -67,7 +68,7 @@ function ScreenArticlesBySource(props) {
                   type="like"
                   key="ellipsis"
                   onClick={() => {
-                    props.addToWishList(article);
+                    props.addToWishList(article, props.token);
                   }}
                 />,
               ]}>
@@ -85,10 +86,14 @@ function ScreenArticlesBySource(props) {
 
 function mapDispatchToProps(dispatch) {
   return {
-    addToWishList: function (article) {
-      dispatch({ type: "addArticle", articleLiked: article });
+    addToWishList: function (article, token) {
+      dispatch({ type: "addArticle", articleLiked: article, token: token });
     },
   };
 }
 
-export default connect(null, mapDispatchToProps)(ScreenArticlesBySource);
+function mapStateToProps(state) {
+  return { token: state.token };
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(ScreenArticlesBySource);
