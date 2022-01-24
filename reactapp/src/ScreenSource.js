@@ -19,7 +19,7 @@ function ScreenSource(props) {
         var country = "us";
       }
       props.changeLang(selectedLang);
-      const data = await fetch(`https://newsapi.org/v2/sources?language=${langue}&country=${country}&apiKey=f4f41cefc0d54cb798b0ae155e691ec0`);
+      const data = await fetch(`https://newsapi.org/v2/sources?language=${langue}&country=${country}&apiKey=${process.env.REACT_APP_API_KEY}`);
       const body = await data.json();
       setSourceList(body.sources);
     };
